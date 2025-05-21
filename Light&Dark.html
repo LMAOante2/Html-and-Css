@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Light/Dark Theme</title>
+</head>
+<style>
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.light-mode {
+    background-color: white;
+    color: black;
+}
+
+.switch {
+    position: fixed;
+    top: 20px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+</style>
+<body>
+
+
+  <div class="test" id="light">
+    <h3 style="margin-left: -85px; margin-top: 5px;">Theme</h3>
+    <label class="switch">
+        <input type="checkbox" id="modeToggle">
+        <span class="slider"></span>
+    </label>
+</div>
+
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("modeToggle");
+  let savedTheme = localStorage.getItem("theme");
+
+  if (!savedTheme) {
+    savedTheme = "dark";
+    localStorage.setItem("theme", "dark");
+  }
+
+  document.body.classList.add(savedTheme + "-mode");
+  toggle.checked = savedTheme === "light";
+
+  toggle.addEventListener("change", () => {
+    const newTheme = toggle.checked ? "light" : "dark";
+    document.body.classList.remove("dark-mode", "light-mode");
+    document.body.classList.add(newTheme + "-mode");
+    localStorage.setItem("theme", newTheme);
+  });
+
+  document.getElementById("logout").addEventListener("click", () => {
+    location.reload();
+  });
+});
+</script>
+</html>

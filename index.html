@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/ecbdcf2a50.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>HTML AND CSS Codes</title>
+</head>
+<body oncontextmenu="return false">
+    <input type="checkbox" id="menutoggle">
+
+    <label class="menu-icon" for="menutoggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav>
+        <ul>
+            <li><a href="account.html">Account</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <input class="search" type="text" id="searchInput" placeholder="Search code...">
+        <i class="fa-solid fa-magnifying-glass searchbar" style="color: black;"></i>
+        
+    </div>
+
+
+
+
+  <main>
+
+    <div class="loader">
+      <h3>Loading...</h3>
+    </div>
+
+
+    <div class="grid">
+        <div class="card" data-title="Navbar Sidebar">
+            <h3>Navbar</h3>
+            <video loop autoplay  muted playsinline controls oncontextmenu="return false">
+              <source src="Navbar.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <a href="navbar.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+        </div>
+            <div class="card" data-title="Light/Dark Mode Switch">
+                <h3>Light/Dark Mode Switch</h3>
+                <video  muted playsinline controls oncontextmenu="return false">
+                  <source src="LightDark mode.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <a href="Light&Dark.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+            </div>
+
+            <div class="card" data-title="Loader Loading Screen">
+                <h3>Loader</h3>
+                <video  muted playsinline controls oncontextmenu="return false">
+                  <source src="Loader.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <a href="Loader.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+            </div>
+
+            <div class="card" data-title="Sidebar Navbar">
+              <h3>Sidebar</h3>
+              <video  muted playsinline controls oncontextmenu="return false">
+                <source src="Sidebar.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <a href="Sidebar.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+          </div>
+
+          <div class="card" data-title="Popup Open On click">
+            <h3>Popup</h3>
+            <video  muted playsinline controls oncontextmenu="return false">
+              <source src="Popup.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <a href="popup.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+        </div>
+
+        <div class="card" data-title="Responsive Navbar">
+          <h3>Responsive Navbar</h3>
+          <video  muted playsinline controls oncontextmenu="return false">
+            <source src="responsivenavbar.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <a id="responsivenavbar" href="Responsive-navbar.html" download class="download-btn responsivenavbar"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+          <a style="background-color: grey;" id="responsivenavbarnot" href="account.html" class="download-btn"><i class="fa-solid fa-lock"></i> <p>Login to Download</p></a>
+      </div>
+
+      <div class="card" data-title="Cool Button Hover Animation">
+        <h3>Cool Button Hover Animation</h3>
+        <video  muted playsinline controls oncontextmenu="return false">
+          <source src="Hover.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <a href="ButtonHover.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+    </div>
+
+    <div class="card" data-title="Card with hover info">
+      <h3>Card with hover info</h3>
+      <video  muted playsinline controls oncontextmenu="return false">
+        <source src="card.mp4 " type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <a href="card.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+  </div>
+
+  <div class="card" data-title="Tooltip">
+    <h3>Tooltip</h3>
+    <video  muted playsinline controls oncontextmenu="return false">
+      <source src="tooltip.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <a href="card.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+</div>
+
+<div class="card" data-title="Slider Loader Progress Bar Loader">
+  <h3>Slider Loder</h3>
+  <video  muted playsinline controls oncontextmenu="return false">
+    <source src="slideloader.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <a href="SlideLoader.html" download class="download-btn"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+</div>
+    </div>
+  </main>
+  
+</body>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+  
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        if (title.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+
+    window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader");
+
+  loader.classList.add("loader--hidden");
+
+  loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+
+
+  </script>
+
+  <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import {
+  getFirestore,
+  getDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDa-Gn5AtvCYwzC7GvArnDUrc6HQfdT-U4",
+  authDomain: "login-form-19883.firebaseapp.com",
+  projectId: "login-form-19883",
+  storageBucket: "login-form-19883.firebaseapp.com",
+  messagingSenderId: "469023290458",
+  appId: "1:469023290458:web:d0d24d8e80ae5c557b5463"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
+
+
+onAuthStateChanged(auth, (user) => {
+  const responsivenavbar = document.getElementById('responsivenavbarnot');
+  if (user) {
+    responsivenavbar.style.display = 'none';
+  } else {
+    responsivenavbar.style.display = 'true';
+  }
+});
+
+
+onAuthStateChanged(auth, (user) => {
+  const logout = document.getElementById('logout');
+  if (user) {
+    logout.style.display = 'true';
+  } else {
+    logout.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const resetPassword = document.getElementById('resetPassword');
+  if (user) {
+    resetPassword.style.display = 'true';
+  } else {
+    resetPassword.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const Ime = document.getElementById('Ime');
+  if (user) {
+    Ime.style.display = 'true';
+  } else {
+    Ime.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const Ime1 = document.getElementById('Ime1');
+  if (user) {
+    Ime1.style.display = 'true';
+  } else {
+    Ime1.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const Ime2 = document.getElementById('Ime2');
+  if (user) {
+    Ime2.style.display = 'true';
+  } else {
+    Ime2.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const light = document.getElementById('light');
+  if (user) {
+    light.style.display = 'true';
+  } else {
+    light.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const light = document.getElementById('status1');
+  if (user) {
+    light.style.display = 'true';
+  } else {
+    light.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const responsivenavbar = document.getElementById('responsivenavbar');
+  if (user) {
+    responsivenavbar.style.display = 'true';
+  } else {
+    responsivenavbar.style.display = 'none';
+  }
+});
+  </script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ecbdcf2a50.js" crossorigin="anonymous"></script>
+    <title>Sidebar</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    nav {
+        height: 100%;
+        width:10px;
+        background: #f4f4f4;
+        position: fixed;
+        text-align: center;
+        padding: 60px 20px;
+        overflow: hidden;
+        transition: width 0.5s ease;
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 20px 0;
+    }
+
+    nav li {
+        margin: 20px 0;
+    }
+
+    nav a {
+        text-decoration: none;
+        font-size: 18px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: blue;
+    }
+    
+    nav i {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-right: 20px;
+        border-radius: 50%;
+        background-color: rgb(6, 22, 255);
+        padding: 5px 5px 5px;
+        margin-top: -5px;
+        margin-bottom: 20px;
+        margin-left: -10px;
+    }
+
+    nav li:nth-child(1) {
+        margin-right: 45px;
+    }
+
+    nav li:nth-child(2) {
+        margin-right: 30px;
+    }
+
+    nav li:nth-child(3) {
+        margin-right: 30px;
+    }
+
+    nav li:nth-child(4) {
+        margin-right: 40px;
+    }
+
+    nav:hover {
+        width: 100px;
+        transition: width 0.5s ease;
+    }
+
+    nav .fa-house:hover, a:hover {
+        color: rgb(0, 119, 255);
+    }
+
+</style>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#"><i class="fa-solid fa-house" style="color: #ffffff;"></i>Home</a></li>
+            <li><a href="#"><i class="fa-solid fa-circle-user" style="color: #ffffff;"></i>Account</a></li>
+            <li><a href="#"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Settings</a></li>
+            <li><a href="#"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i>Bin</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

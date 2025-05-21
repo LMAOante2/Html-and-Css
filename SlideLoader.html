@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loader</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: visibility 2s;
+    }
+
+    .loader--hidden {
+      visibility: hidden;
+    }
+
+    .progress-bar-container {
+      width: 500px;
+      height: 30px;
+      background: #7e7e7e;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: blue;
+      border-radius: 10px;
+      animation: fillBar 2s forwards;
+    }
+
+    @keyframes fillBar {
+      0% {
+        width: 0%;
+      }
+
+      25% {
+        width: 15%;
+      }
+
+      80% {
+        width: 65%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader">
+    <div class="progress-bar-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <h3>Hello</h3>
+
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.querySelector(".loader");
+      loader.classList.add("loader--hidden");
+
+      loader.addEventListener("transitionend", () => {
+        loader.remove();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profil/profil.css">
+    <title>Account</title>
+    <link rel="icon" href="slike/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="slike/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="slike/android-chrome-192x192.png" sizes="96x96" type="image/png">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-size: cover;
+    background-attachment: scroll;
+    touch-action: manipulation;
+    -ms-touch-action: manipulation;
+    touch-action: pan-y;
+    -ms-touch-action: pan-y;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+}
+
+button,
+div {
+    font-size: 20px;
+    padding: 10px;
+}
+
+div {
+    font-weight: 400;
+    text-align: center;
+}
+
+span {
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+}
+
+.a {
+    text-decoration: none;
+    text-align: center;
+}
+
+.a:hover {
+    text-decoration: underline;
+    text-align: center;
+}
+
+.div {
+    justify-content: center;
+    place-self: center;
+    justify-self: center;
+    padding: 25px 20px 25px;
+    border-radius: 15px;
+    border: 2px solid blue;
+    transition: transform 0.5s ease;
+    transform: scale(1);
+    animation: strana 2s infinite;
+}
+
+.btn4 {
+  margin-bottom: 0px;
+  margin-top: 200px;
+  gap: 0px;
+  padding: 10px 20px 10px;
+  background-color: lightgray;
+  border: none;
+  cursor: pointer;
+}
+
+.btn4.active {
+  background-color: blue;
+  color: white;
+  text-decoration: underline;
+}
+
+
+  .buttons {
+    display: flex;
+    place-self: center;
+    gap: 50px;
+    justify-content: space-between;
+  }
+
+
+@keyframes strana {
+    0% {
+        border-color: blue;
+    }
+    50% {
+        border-color: transparent;
+    }
+    100% {
+        border-color: blue;
+    }
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    user-select: none;
+}
+
+header .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    user-select: none;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    padding-top: 60px;
+    transition: left 0.4s ease-in-out;
+    user-select: none;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+nav li {
+    padding: 15px 20px;
+    text-align: left;
+    user-select: none;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    transition: color 0.3s;
+    user-select: none;
+}
+
+.menu-toggle {
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+    user-select: none;
+}
+
+.close-menu {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.desktop-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    user-select: none;
+}
+
+.desktop-nav li {
+    padding: 0;
+    list-style: none;
+    user-select: none;
+}
+
+.desktop-nav a {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    user-select: none;
+}
+
+.desktop-nav a:hover {
+    color: #ff9900;
+}
+
+.title {
+    color: rgb(43, 113, 106);
+    -webkit-text-stroke: 2px;
+    -webkit-text-stroke-color: rgb(66, 125, 117);
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        margin-top: 120px;
+        margin-left: -35px;
+        margin-bottom: -50px;
+    }
+
+    .title {
+        margin-left: 25px;
+        font-size: 20px;
+        margin-top: -10px;
+        margin-bottom: -165px;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+}
+
+/* Dark */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .div,
+.dark-mode button,
+.dark-mode nav
+{
+    background-color: rgba(39, 39, 39, 0.9);
+    color: white;
+    border-color: cyan;
+}
+
+.dark-mode .menu-icon span {
+    background-color: white;
+    color: black;
+}
+
+.dark-mode hr {
+    border-color: white;
+    background-color: white;
+    color: white;
+}
+
+.dark-mode .logout {
+    background-color: rgb(255, 60, 60);
+}
+
+.dark-mode .side-menu {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode a {
+    color: white;
+}
+
+.dark-mode .menu-toggle {
+    background: none;
+}
+
+/* Light */
+.light-mode {
+    background-color: white;
+    color: black;
+}
+
+.light-mode .div,
+.light-mode .side-menu,
+.light-mode button,
+.light-mode header
+ {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: black;
+    border-color: blue;
+}
+
+.light-mode hr {
+    border-color: black;
+    background-color: black;
+    color: black;
+}
+
+.light-mode a, .lightmode span {
+    color: black;
+}
+
+.light-mode .menu-toggle {
+    background: none;
+}
+
+.light-mode .logout {
+    background-color: rgb(253, 55, 55);
+}
+
+.switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-top: 63px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+    .switch1 {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-top: 115px;
+  }
+  
+  .switch1 input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider1 {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+  }
+  
+  .slider1:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider1 {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider1:before {
+    transform: translateX(26px);
+  }
+
+  .logout {
+    background-color: rgb(255, 60, 60);
+  }
+
+  .logout:hover {
+    background-color: rgb(255, 0, 0);
+  }
+  
+  hr {
+    width: 100%;
+    color: white;
+  }
+
+  .opcenito {
+    text-align: center;
+  }
+  .opcenito hr {
+    text-align: center;
+    width: 100%;
+    color: white;
+  }
+  
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    transition: visibility 1.5s;
+    z-index: 200;
+  }
+  
+  .loader--hidden {
+    visibility: hidden;
+  }
+  
+  .loader::after {
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #7e7e7e;
+    border-top-color: #0011ff;
+    border-radius: 50%;
+    animation: loading 2s ease infinite;
+  }
+  
+  @keyframes loading {
+    from {
+      transform: rotate(0turn);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  .loading {
+    z-index: 200;
+  }
+
+    .div2 {
+    justify-content: center;
+    place-self: center;
+    padding: 25px 20px 25px;
+    background-color: rgba(39, 39, 39, 0.664);
+    margin-top: 20px;
+    border-radius: 15px;
+    border: 2px solid blue;
+    color: white;
+    transition: transform 0.5s ease;
+    transform: scale(1);
+    
+    animation: strana 2s infinite;
+    }
+
+    input {
+        border-radius: 10px;
+        height: 25px;
+        background: none;
+        color: white;
+        text-align: center;
+        border: 1px solid white;
+    }
+    
+    input::placeholder {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    #menutoggle {
+    display: none;
+}
+
+.menu-icon {
+    height: 25px;
+    width: 30px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-icon span {
+    height: 4px;
+    width: 100%;
+    background: black;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+#menutoggle:checked + .menu-icon span:nth-child(1) {
+    transform: rotate(45deg) translateY(15px);
+}
+
+#menutoggle:checked + .menu-icon span:nth-child(2) {
+    opacity: 0;
+}
+
+#menutoggle:checked + .menu-icon span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-15px);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: -80%;
+    width: 200px;
+    height: 100%;
+    background: #f4f4f4;
+    padding: 60px 20px;
+    transition: left 0.3s ease;
+}
+
+#menutoggle:checked ~ nav {
+    left: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    margin:  20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #020202;
+    display: flex;
+    flex-direction: row;
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    transition: visibility 1.5s;
+    z-index: 200;
+  }
+
+  .loader h3 {
+    position: absolute;
+    color: white;
+    margin-top: 150px;
+  }
+  
+  .loader--hidden {
+    visibility: hidden;
+  }
+  
+  .loader::after {
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #7e7e7e;
+    border-top-color: #0011ff;
+    border-radius: 50%;
+    animation: loading 2s ease infinite;
+  }
+  
+  @keyframes loading {
+    from {
+      transform: rotate(0turn);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  .loading {
+    z-index: 200;
+  }
+    </style>
+</head>
+<body>
+
+
+  <div class="loader">
+    <h3>Loading...</h3>
+  </div>
+
+
+    <input type="checkbox" id="menutoggle">
+
+    <label class="menu-icon" for="menutoggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="buttons">
+        <button id="profil1" class="btn4">Account</button>
+        <button id="postavke1" class="btn4">Settings</button>
+    </div>
+    <div id="profil" style="margin-top: 10px;" class="div">
+       <h1>Account</h1>
+       <hr>
+       <div  id="Ime"><span  id="loggedUserFName"></span></div>
+       <div  id="Ime1"><span  id="loggedUserLName"></span></div>
+       <div  id="Ime2"><span  id="loggedUserEmail"></span></div>
+       <button id="link1"><a style="text-decoration: none;" href="login.html">Login</a></button>
+       <button class="logout" id="logout">Logout</button>
+       <button id="promjenibtn">Change Password</button>    
+    </div>
+
+    <div id="postavke" style="margin-top: 30px; width: 360px; display: none;" class="div div1">
+        <h1 style="margin-bottom: 30px;">Settings</h1>
+        <hr style="margin-top: -30px;">
+        
+        <div class="test" id="light">
+            <h3 style="margin-left: -85px; margin-top: 5px;">Light/Dark mode</h3>
+            <label class="switch">
+                <input type="checkbox" id="modeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+
+    
+        <h3 id="lightnot">You need to be logged in to change settings</h3>
+    </div>
+
+    <div class="div2" id="promjenidiv" style="display: none;">
+            <h1>Change password</h1>
+            <input type="email" id="resetEmail" placeholder="e-mail (Needs to be yours!!)" />
+            <button id="resetPassword">Send E-mail</button>
+            <div id="resetMessage" style="color: green; display: none;"></div>
+    </div>
+
+
+
+</body>
+<script type="module" >
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import {
+  getFirestore,
+  getDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDa-Gn5AtvCYwzC7GvArnDUrc6HQfdT-U4",
+  authDomain: "login-form-19883.firebaseapp.com",
+  projectId: "login-form-19883",
+  storageBucket: "login-form-19883.firebaseapp.com",
+  messagingSenderId: "469023290458",
+  appId: "1:469023290458:web:d0d24d8e80ae5c557b5463"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
+
+
+onAuthStateChanged(auth, (user) => {
+  const loggedInUserId = localStorage.getItem('loggedInUserId');
+  if (loggedInUserId) {
+    const docRef = doc(db, "users", loggedInUserId);
+    getDoc(docRef)
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          document.getElementById('loggedUserFName').innerText = userData.firstName;
+          document.getElementById('loggedUserEmail').innerText = userData.email;
+          document.getElementById('loggedUserLName').innerText = userData.lastName;
+        } else {
+          console.log("No document found matching ID");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  } else {
+    console.log("User ID not found in local storage");
+  }
+});
+
+
+const logoutButton = document.getElementById('logout');
+logoutButton.addEventListener('click', () => {
+  localStorage.removeItem('loggedInUserId');
+  signOut(auth)
+    .then(() => {
+      window.location.href = 'index.html';
+    })
+    .catch((error) => {
+      console.error('Error signing out:', error);
+    });
+});
+
+
+onAuthStateChanged(auth, (user) => {
+  const link1 = document.getElementById('link1');
+  if (user) {
+    link1.style.display = 'none';
+  } else {
+    link1.style.display = 'true';
+  }
+});
+
+
+onAuthStateChanged(auth, (user) => {
+  const logout = document.getElementById('logout');
+  if (user) {
+    logout.style.display = 'true';
+  } else {
+    logout.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const resetPassword = document.getElementById('resetPassword');
+  if (user) {
+    resetPassword.style.display = 'true';
+  } else {
+    resetPassword.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const Ime = document.getElementById('Ime');
+  if (user) {
+    Ime.style.display = 'true';
+  } else {
+    Ime.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const Ime1 = document.getElementById('Ime1');
+  if (user) {
+    Ime1.style.display = 'true';
+  } else {
+    Ime1.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const Ime2 = document.getElementById('Ime2');
+  if (user) {
+    Ime2.style.display = 'true';
+  } else {
+    Ime2.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const light = document.getElementById('light');
+  if (user) {
+    light.style.display = 'true';
+  } else {
+    light.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const light = document.getElementById('status1');
+  if (user) {
+    light.style.display = 'true';
+  } else {
+    light.style.display = 'none';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const lightnot = document.getElementById('lightnot');
+  if (user) {
+    lightnot.style.display = 'none';
+  } else {
+    lightnot.style.display = 'true';
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const closeMenu = document.querySelector(".close-menu");
+  const sideMenu = document.querySelector(".side-menu");
+
+  menuToggle.addEventListener("click", function () {
+      sideMenu.classList.add("active");
+  });
+
+  closeMenu.addEventListener("click", function () {
+      sideMenu.classList.remove("active");
+  });
+
+  document.addEventListener("click", function (event) {
+      if (!sideMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+          sideMenu.classList.remove("active");
+      }
+  });
+});
+
+setTimeout(() => {
+  document.getElementById('cursor').classList.add('fade-out');
+}, 3000);
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("modeToggle");
+  let savedTheme = localStorage.getItem("theme");
+
+  if (!savedTheme) {
+    savedTheme = "dark";
+    localStorage.setItem("theme", "dark");
+  }
+
+  document.body.classList.add(savedTheme + "-mode");
+  toggle.checked = savedTheme === "light";
+
+  toggle.addEventListener("change", () => {
+    const newTheme = toggle.checked ? "light" : "dark";
+    document.body.classList.remove("dark-mode", "light-mode");
+    document.body.classList.add(newTheme + "-mode");
+    localStorage.setItem("theme", newTheme);
+  });
+
+  document.getElementById("logout").addEventListener("click", () => {
+    location.reload();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("status");
+
+
+  let savedStatus = localStorage.getItem("status");
+  
+ 
+  if (savedStatus === null) {
+    savedStatus = "true";
+    localStorage.setItem("status", savedStatus);
+  }
+
+ 
+  toggle.checked = savedStatus === "true";
+
+  toggle.addEventListener("change", () => {
+    const newStatus = toggle.checked ? "true" : "false";
+    localStorage.setItem("status", newStatus);
+
+ 
+    const content = document.getElementById("igraci");
+    if (toggle.checked) {
+      content.style.display = "block";
+    } else {
+      content.style.display = "none";
+    }
+  });
+
+ 
+  const content = document.getElementById("igraci");
+  if (savedStatus === "true") {
+    content.style.display = "block";
+  } else {
+    content.style.display = "none";
+  }
+});
+
+const buttons = document.querySelectorAll('.btn4');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("profil1").addEventListener("click", function () {
+    if(document.getElementById("postavke").style.display = "none"){
+      document.getElementById("profil").style.display = "block";
+    }
+    else {
+      document.getElementById("postavke").style.display = "none";
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("postavke1").addEventListener("click", function () {
+    if(    document.getElementById("profil").style.display = "none") {
+      document.getElementById("postavke").style.display = "block";
+      document.getElementById("profil").style.display = "none";
+      document.getElementById("promjenidiv").style.display = "none";
+    }
+    else{
+      document.getElementById("profil").style.display = "none";
+    }
+  });
+});
+
+window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader");
+
+  loader.classList.add("loader--hidden");
+
+  loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("promjenibtn").addEventListener("click", function () {
+    if(document.getElementById("promjenidiv").style.display = "none") {
+      document.getElementById("promjenidiv").style.display = "block";
+    }
+    else{
+      document.getElementById("profil").style.display = "none";
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const resetBtn = document.getElementById('resetPassword');
+  if (!resetBtn) return;
+
+  resetBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const emailInput = document.getElementById('resetEmail');
+    const messageDiv = document.getElementById('resetMessage');
+
+    if (!emailInput || !messageDiv) return;
+
+    const email = emailInput.value.trim();
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        messageDiv.style.display = 'block';
+        messageDiv.innerText = 'E-mail za ponovno postavljanje lozinke je poslan!';
+        messageDiv.style.color = 'green';
+      })
+      .catch((error) => {
+        messageDiv.style.display = 'block';
+        messageDiv.innerText = 'Error u slanju e-maila. Pogledaj jel dobro upisano.';
+        messageDiv.style.color = 'red';
+        console.error(error);
+      });
+  });
+});
+</script>
+</html>

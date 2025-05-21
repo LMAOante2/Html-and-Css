@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+    * {
+        padding: 0;
+        margin: 0;;
+    }
+
+    #navbar {
+        display: none;
+    }
+
+    #navbar:checked ~ nav {
+        left: 0;
+    }
+
+    #navbar:checked + .navbar-icon span:nth-child(1) {
+        transform: rotate(45deg) translateY(15px);
+    }
+
+    #navbar:checked + .navbar-icon span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #navbar:checked + .navbar-icon span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-15px);
+    }
+
+
+.navbar-icon {
+    position: absolute;
+    width: 30px;
+    height: 25px;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.navbar-icon span {
+    width: 100%;
+    height: 4px;
+    background: black;
+    transition: all 0.5s ease;
+}
+
+nav {
+    position: fixed;
+    width: 150px;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    padding: 60px 20px;
+    background: #f4f4f4;
+    transition: left 0.3s ease;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    margin: 20px 0;
+}
+
+nav a {
+    font: 18px;
+    color: rgb(12, 12, 168);
+    text-decoration: none; 
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+</style>
+<body>
+
+    <input type="checkbox" id="navbar">
+
+    <label class="navbar-icon" for="navbar">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+    <nav>
+        <ul>
+            <li><a href="#">Test</a></li>
+            <li><a href="#">Test</a></li>
+            <li><a href="#">Test</a></li>
+            <li><a href="#">Test</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

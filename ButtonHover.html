@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ButtonHover</title>
+</head>
+
+<style>
+
+.buttons .btn {
+            padding: 15px 35px;
+            margin: 40px 30px;
+            border-radius: 30px;
+            color: black;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            background-size: 200% 100%;
+            transition: Sirena 0.2s ease-in-out;
+            transition: 0.5s ease;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none; 
+             -khtml-user-select: none; 
+               -moz-user-select: none; 
+                -ms-user-select: none; 
+                    user-select: none; 
+        }
+
+        .btn:hover {
+            animation: Sirena 0.15s infinite alternate;
+        }
+
+        .btn:nth-child(1) {
+            background: blue;
+        }
+
+        .btn:nth-child(2) {
+            background: red;
+        }
+
+        .btn:nth-child(3) {
+            background: green;
+        }
+
+        .btn:nth-child(4) {
+            background: white;
+        }
+
+
+
+        @keyframes Sirena {
+            0% { background-position: 50% 100%; box-shadow: 20px 0 20px rgb(255, 0, 0); }
+            100% { background-position: 100% 100%; box-shadow: -20px 0 20px rgb(4, 0, 255); }
+        }
+</style>
+<body>
+    <div class="buttons">
+        <a class="btn" href="#">Hover me</a>
+        <a class="btn" href="#">Hover me</a>
+        <a class="btn" href="#">Hover me</a>
+        <a class="btn" href="#">Hover me</a>
+    </div>
+
+</body>
+</html>

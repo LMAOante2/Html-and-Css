@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    #menutoggle {
+        display: none;
+    }
+
+    #menutoggle:checked ~ .nav {
+        left: 0;
+    }
+
+    #menutoggle:checked + .menutoggle-icon span:nth-child(1) {
+        transform: rotate(45deg) translateY(15px);
+    }
+
+    #menutoggle:checked + .menutoggle-icon span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #menutoggle:checked + .menutoggle-icon span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-15px);
+
+    }
+
+    @media screen and (min-width: 767px) {
+
+        .menutoggle-icon span {
+            display: none;
+        }
+
+        .nav {
+            display: none;
+        }
+
+        .desktopnav {
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .desktopnav {
+            display: none;
+        }
+    }
+
+    .menutoggle-icon {
+        position: absolute;
+        width: 35px;
+        height: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+    }
+
+    .menutoggle-icon span {
+        width: 100%;
+        height: 4px;
+        background: black;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .nav {
+        position: fixed;
+        width: 150px;
+        height: 100%;
+        background: white;
+        left: -100%;
+        padding: 60px 20px;
+        transition: left 0.3s ease;
+        box-shadow: 0px 7px 30px 3px rgba(0,0,0,0.34);
+
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(30deg);
+        }
+    }
+
+    .nav ul {
+        list-style: none;
+        margin: 0;
+    }
+
+    .nav li {
+        padding: 20px;
+    }
+
+    .nav a {
+        color: rgb(33, 33, 194);
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .nav a:hover {
+        text-decoration: underline;
+        color: blue;
+    }
+
+    .desktopnav {
+        position: absolute;
+        position: fixed;
+        width: 100%;
+        height: 60px;
+        background: white;
+        box-shadow: 0px -4px 30px 3px rgba(0,0,0,0.34);
+    }
+
+    .desktopnav ul {
+        position: relative;
+        list-style: none;
+        margin: 0;
+        display: flex;
+        justify-content: right;
+    }
+
+    .desktopnav li {
+        padding: 20px 30px;
+        text-align: right;
+
+    }
+
+    .desktopnav a {
+        font-size: 18px;
+        text-decoration: none;
+        color: rgb(33, 33, 194);
+    }
+
+    .desktopnav a:hover {
+        text-decoration: underline;
+        color: blue;
+    }
+
+    .desktopnav h3 {
+        position: absolute;
+        font-size: 18px;
+        margin: auto;
+        padding: 20px 0;
+        left: 35px;
+    }
+
+    .nav h3 {
+        font-size: 18px;
+        padding: 20px 0;
+        margin: 0;
+        left: 0px;
+    }
+
+
+
+    
+</style>
+<body>
+
+    <input type="checkbox" id="menutoggle">
+
+    <label class="menutoggle-icon" for="menutoggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+    <nav class="desktopnav">
+        <h3>My Website</h3>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Status</a></li>
+        </ul>
+    </nav>
+
+    <nav class="nav">
+        <h3>My Website</h3>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Status</a></li>
+        </ul>
+    </nav>
+    
+</body>
+</html>
