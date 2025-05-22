@@ -17,7 +17,9 @@
     </label>
     <nav>
         <ul>
-            <li><a href="account.html">Account</a></li>
+          <li id="logingenerator"><a href="login.html">Login to use Code Generators</a></li>
+          <li id="loggedingenerator"><a href="/Generators/index.html">Code Generators</a></li>
+          <li><a href="account.html">Account</a></li>
         </ul>
     </nav>
 
@@ -200,20 +202,20 @@ onAuthStateChanged(auth, (user) => {
 
 
 onAuthStateChanged(auth, (user) => {
-  const logout = document.getElementById('logout');
+  const logingenerator = document.getElementById('logingenerator');
   if (user) {
-    logout.style.display = 'true';
+    logingenerator.style.display = 'none';
   } else {
-    logout.style.display = 'none';
+    logingenerator.style.display = 'true';
   }
 });
 
 onAuthStateChanged(auth, (user) => {
-  const resetPassword = document.getElementById('resetPassword');
+  const loggedingenerator = document.getElementById('loggedingenerator');
   if (user) {
-    resetPassword.style.display = 'true';
+    loggedingenerator.style.display = 'true';
   } else {
-    resetPassword.style.display = 'none';
+    loggedingenerator.style.display = 'none';
   }
 });
 
