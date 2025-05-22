@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    select, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      font-size: 1rem;
+    }
+    textarea {
+      height: 180px;
+      font-family: monospace;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Code Generator</h1>
+  <label for="jsFeature">Choose JS feature:</label>
+  <select id="jsFeature">
+    <option value="alert">Alert Box</option>
+    <option value="changeText">Change Text Content</option>
+    <option value="toggleClass">Toggle CSS Class</option>
+    <option value="clickCounter">Click Counter</option>
+    <option value="fetchData">Fetch Data (Basic)</option>
+    <option value="onclickSimple">Simple onclick attribute</option>
+    <option value="onclickAddListener">Add onclick event listener</option>
+    <option value="onclickFunction">Define onclick function</option>
+  </select>
+
+  <textarea id="jsCode" readonly></textarea>
+
+  <button id="copyJSBtn">Copy JS Code</button>
+
+  <script>
+    const jsFeature = document.getElementById('jsFeature');
+    const jsCode = document.getElementById('jsCode');
+    const copyBtn = document.getElementById('copyJSBtn');
+
+    const snippets = {
+      alert: `// Show an alert box
+alert("Hello, world!");`,
+
+      changeText: `// Change text content of an element with id="myText"
+document.getElementById("myText").textContent = "New text!";`,
+
+      toggleClass: `// Toggle a CSS class on an element with id="myDiv"
+const el = document.getElementById("myDiv");
+el.classList.toggle("active");`,
+
+      clickCounter: `// Count clicks on a button and show in a div
+let count = 0;
+document.getElementById("myBtn").addEventListener("click", () => {
+  count++;
+  document.getElementById("counter").textContent = "Clicks: " + count;
+});`,
+
+      fetchData: `// Fetch JSON data from an API and log it
+fetch("https://api.example.com/data")
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => console.error("Error:", error));`,
+
+      onclickSimple: `<!-- HTML -->
+<button onclick="alert('Button clicked!')">Click me</button>`,
+      
+      onclickAddListener: `// JavaScript: Add click listener to button with id="myBtn"
+document.getElementById("myBtn").addEventListener("click", () => {
+  alert("Button clicked!");
+});`,
+
+      onclickFunction: `// JavaScript: Define function and assign onclick in HTML
+function showMessage() {
+  alert("Button clicked!");
+}
+
+// In HTML:
+// <button onclick="showMessage()">Click me</button>`
+    };
+
+    function updateJSCode() {
+      jsCode.value = snippets[jsFeature.value];
+    }
+
+    jsFeature.addEventListener('change', updateJSCode);
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(jsCode.value);
+      alert('JS code copied!');
+    });
+
+    updateJSCode();
+  </script>
+</body>
+</html>

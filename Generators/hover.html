@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hover Effects Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Hover Effects Generator</h1>
+    <a href="index.html">← Back to Home</a>
+
+
+    <label>Hover Background Color: <input type="color" id="hoverBg" /></label>
+    <label>Hover Scale (%): <input type="range" id="hoverScale" min="100" max="150" value="100" /></label>
+    <fieldset>
+        <legend>Hover Glow (Box Shadow)</legend>
+        <label>Horizontal Offset: <input type="range" id="glowH" min="-50" max="50" value="0"></label>
+        <label>Vertical Offset: <input type="range" id="glowV" min="-50" max="50" value="0"></label>
+        <label>Blur Radius: <input type="range" id="glowBlur" min="0" max="100" value="10"></label>
+        <label>Glow Color: <input type="color" id="glowColor" value="#ff0000"></label>
+      </fieldset>      
+    <label><input type="checkbox" id="growCheck" /> Grow on Hover</label>
+    <label><input type="checkbox" id="liftCheck" /> Move Up on Hover</label>
+
+    <div class="preview" id="hoverBox">Hover Over Me</div>
+    <pre id="hoverCSS"></pre>
+    <button onclick="copyHoverCSS()">Copy CSS</button>
+  </div>
+
+  <script src="hover.js"></script>
+</body>
+</html>

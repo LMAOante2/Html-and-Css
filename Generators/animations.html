@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animation Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+  </style>
+</head>
+<body>
+  <div style="max-width:400px;margin: auto; font-family: sans-serif; text-align:center;">
+    <h1>Animation Generator</h1>
+
+    <label>
+      Animation:
+      <select id="animationType">
+        <option value="bounce">Bounce</option>
+        <option value="spin">Spin</option>
+        <option value="grow">Grow</option>
+        <option value="shrink">Shrink</option>
+        <option value="breathe">Breathe</option>
+      </select>
+    </label>
+    <br /><br />
+
+    <label>
+      Duration (seconds):
+      <input type="number" id="duration" min="0.1" value="2" step="0.1" />
+    </label>
+    <br /><br />
+
+    <div id="animBox">Box</div>
+
+    <button id="playBtn" style="margin-top:15px; padding:8px 15px;">▶ Play Animation</button>
+    <button id="playBtn" style="margin-top:15px; padding:8px 15px;"><a style="text-decoration: none; color: white; font-size: 15px;" href="index.html">Home</a></button>
+
+    <pre id="animCSS" style="text-align:left; background:#eee; padding:10px; margin-top:20px;"></pre>
+    <button id="copyBtn" style="margin-top:5px; padding:5px 10px;">Copy CSS</button>
+  </div>
+
+  <script>
+    const animBox = document.getElementById('animBox');
+    const animationType = document.getElementById('animationType');
+    const duration = document.getElementById('duration');
+    const playBtn = document.getElementById('playBtn');
+    const animCSS = document.getElementById('animCSS');
+    const copyBtn = document.getElementById('copyBtn');
+
+    const keyframesMap = {
+      bounce: `@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}`,
+      spin: `@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}`,
+      grow: `@keyframes grow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}`,
+      shrink: `@keyframes shrink {
+  0%, 100% { transform: scale(1.3); }
+  50% { transform: scale(1); }
+}`,
+      breathe: `@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}`
+    };
+
+    function updateCSS() {
+      const anim = animationType.value;
+      const dur = duration.value;
+      animCSS.textContent = `${keyframesMap[anim]}
+
+.your-element {
+  animation: ${anim} ${dur}s infinite ease-in-out;
+}`;
+    }
+
+    function playAnimation() {
+      const anim = animationType.value;
+      const dur = duration.value;
+
+      animBox.style.animation = 'none';
+      void animBox.offsetWidth; // trigger reflow
+      animBox.style.animation = `${anim} ${dur}s infinite ease-in-out`;
+    }
+
+    playBtn.addEventListener('click', playAnimation);
+    animationType.addEventListener('change', updateCSS);
+    duration.addEventListener('input', updateCSS);
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(animCSS.textContent);
+      alert('CSS copied to clipboard!');
+    });
+
+    updateCSS();
+  </script>
+</body>
+</html>

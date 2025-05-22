@@ -1,1 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UI Element Designer</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+}
 
+#sidebar-toggle {
+  display: none;
+}
+
+.sidebar-icon {
+  height: 25px;
+  width: 30px;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: left 0.5s ease;
+}
+.sidebar-icon span {
+  height: 4px;
+  width: 100%;
+  background: black;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+#sidebar-toggle:checked ~ .sidebar-icon {
+  left: 230px;
+}
+
+#sidebar {
+  position: absolute;
+  height: 100%;
+  width: 200px;
+  background: #222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  z-index: 2;
+}
+
+#sidebar-toggle:checked ~ #sidebar {
+  transform: translateX(0);
+}
+
+#canvas {
+  background: #eee;
+  overflow: auto;
+  transition: all 0.4s ease;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  position: relative;
+  z-index: 1;
+}
+
+#sidebar-toggle:checked + .sidebar-icon span:nth-child(1) {
+  transform: rotate(45deg) translateY(15px);
+}
+
+#sidebar-toggle:checked + .sidebar-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+#sidebar-toggle:checked + .sidebar-icon span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-15px);
+}
+
+#sidebar-toggle:checked ~ #canvas {
+  width: calc(100% - 200px);
+  margin-left: 200px;
+}
+
+#sidebar button {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #3498db;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+#sidebar button:hover {
+  background: #2980b9;
+}
+
+.item {
+  position: absolute;
+  background-color: #3498db;
+  color: white;
+  border-radius: 6px;
+  user-select: none;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.item.selected {
+  outline: 2px dashed orange;
+}
+.resize-handle {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border: 1px solid black;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+  z-index: 10;
+}
+.rotate-handle {
+  width: 12px;
+  height: 12px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  right: 50%;
+  top: -20px;
+  cursor: grab;
+  z-index: 10;
+}
+
+#contextMenu {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  display: none;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+#contextMenu button {
+  display: block;
+  width: 150px;
+  padding: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+#contextMenu button:hover {
+  background: #f0f0f0;
+}
+
+#editModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+#editModal form {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  min-width: 300px;
+}
+#editModal label {
+  display: block;
+  margin: 8px 0 4px;
+}
+#editModal input[type=text],
+#editModal input[type=color],
+#editModal input[type=number],
+#editModal input[type=url] {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+#editModal button {
+  margin-top: 12px;
+  padding: 10px;
+  background: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#output {
+  position: absolute;
+  height: 100%;
+  width: 200px;
+  background: #222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  right: -100%;
+  transition: right 0.3s ease;
+  z-index: 2;
+  
+}
+#output textarea {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 10px;
+  font-family: monospace;
+  font-size: 12px;
+}
+#output button {
+  background: #3498db;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+#output-toggle {
+  display: none;
+}
+
+#output-toggle:checked ~ #output {
+  right: 0;
+}
+
+.output-icon {
+  height: 25px;
+  width: 30px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+.output-icon span {
+  height: 4px;
+  width: 100%;
+  background: black;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+#output-toggle:checked ~ .output-icon {
+  right: 230px;
+}
+
+#output-toggle:checked + .output-icon span:nth-child(1) {
+  transform: rotate(45deg) translateY(15px);
+}
+
+#output-toggle:checked + .output-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+#output-toggle:checked + .output-icon span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-15px);
+}
+
+#output-toggle:checked ~ #canvas {
+  width: calc(100% - 200px);
+  margin-left: -20px;
+}
+
+input[type="text"] {
+  font-size: 14px;
+}
+input[type="text"]:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.item input[type="text"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: inherit;
+  font-size: 14px;
+  background-color: transparent;
+  color: inherit;
+}
+
+</style>
+</head>
+<body>
+
+  <input type="checkbox" name="" id="sidebar-toggle">
+  <label class="sidebar-icon" for="sidebar-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <input type="checkbox" name="" id="output-toggle">
+  <label class="output-icon" for="output-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+<div id="sidebar">
+  <button id="addBlockBtn">Add Block</button>
+  <button id="addLineBtn">Add Line</button>
+  <button id="addLinkBtn">Add Link</button>
+  <button id="addImageBtn">Add Image</button>
+  <button id="addInputBtn">Add Input</button>
+  <button style="width: 200px;"><a style="text-decoration: none; color: white; width: 200px;" href="index.html">Home</a></button>
+</div>
+
+<div id="canvas"></div>
+
+<div id="contextMenu">
+  <button id="editBtn">Edit</button>
+  <button id="deleteBtn">Delete</button>
+  <button id="cutBtn">Cut</button>
+  <button id="copyBtn">Copy</button>
+  <button id="pasteBtn">Paste</button>
+  <button id="duplicateBtn">Duplicate</button>
+  <button id="bringForwardBtn">Bring Forward</button>
+  <button id="sendBackwardBtn">Send Backward</button>
+</div>
+
+<div id="editModal">
+  <form id="editForm">
+    <label for="editText">Text / Placeholder:</label>
+    <input type="text" id="editText" />
+
+    <label for="editHref">Link URL (for links):</label>
+    <input type="url" id="editHref" placeholder="https://example.com" />
+
+    <label for="editBgColor">Background Color:</label>
+    <input type="color" id="editBgColor" />
+
+    <label for="editColor">Text Color:</label>
+    <input type="color" id="editColor" />
+
+    <label>Border Radius (px):</label>
+    <input type="number" id="editBrTopLeft" min="0" max="100" placeholder="Top Left" style="width: 70px; display: inline-block;" />
+    <input type="number" id="editBrTopRight" min="0" max="100" placeholder="Top Right" style="width: 70px; display: inline-block; margin-left: 5px;" />
+    <input type="number" id="editBrBottomRight" min="0" max="100" placeholder="Bottom Right" style="width: 70px; display: inline-block; margin-left: 5px;" />
+    <input type="number" id="editBrBottomLeft" min="0" max="100" placeholder="Bottom Left" style="width: 70px; display: inline-block; margin-left: 5px;" />
+
+    <label for="editRotation">Rotation (degrees):</label>
+    <input type="number" id="editRotation" min="0" max="360" />
+
+    <button type="submit">Apply</button>
+  </form>
+</div>
+
+<input type="file" id="imageUpload" accept="image/*" style="display:none" />
+
+<div id="output">
+  <button id="copyCSSBtn">Copy CSS</button>
+  <textarea id="outputCSS" readonly></textarea>
+  <button id="copyHTMLBtn">Copy HTML</button>
+  <textarea id="outputHTML" readonly></textarea>
+</div>
+
+<script>
+(() => {
+  const sidebar = document.getElementById('sidebar');
+  const canvas = document.getElementById('canvas');
+  const contextMenu = document.getElementById('contextMenu');
+  const editModal = document.getElementById('editModal');
+  const editForm = document.getElementById('editForm');
+  const outputCSS = document.getElementById('outputCSS');
+  const outputHTML = document.getElementById('outputHTML');
+  const copyCSSBtn = document.getElementById('copyCSSBtn');
+  const copyHTMLBtn = document.getElementById('copyHTMLBtn');
+  const imageUpload = document.getElementById('imageUpload');
+
+  const addBlockBtn = document.getElementById('addBlockBtn');
+  const addLineBtn = document.getElementById('addLineBtn');
+  const addLinkBtn = document.getElementById('addLinkBtn');
+  const addImageBtn = document.getElementById('addImageBtn');
+  const addInputBtn = document.getElementById('addInputBtn');
+
+  // Edit form inputs
+  const editText = document.getElementById('editText');
+  const editHref = document.getElementById('editHref');
+  const editBgColor = document.getElementById('editBgColor');
+  const editColor = document.getElementById('editColor');
+  const editBrTopLeft = document.getElementById('editBrTopLeft');
+  const editBrTopRight = document.getElementById('editBrTopRight');
+  const editBrBottomRight = document.getElementById('editBrBottomRight');
+  const editBrBottomLeft = document.getElementById('editBrBottomLeft');
+  const editRotation = document.getElementById('editRotation');
+
+  const editBtn = document.getElementById('editBtn');
+  const deleteBtn = document.getElementById('deleteBtn');
+  const cutBtn = document.getElementById('cutBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const pasteBtn = document.getElementById('pasteBtn');
+  const duplicateBtn = document.getElementById('duplicateBtn');
+  const bringForwardBtn = document.getElementById('bringForwardBtn');
+  const sendBackwardBtn = document.getElementById('sendBackwardBtn');
+
+  let idCounter = 0;
+  let selectedItem = null;
+  let clipboard = null;
+
+  function createItem(type) {
+    const item = document.createElement(type === 'link' ? 'a' : 'div');
+    item.className = 'item';
+    item.dataset.type = type;
+    item.id = `item${++idCounter}`;
+    item.style.left = '50px';
+    item.style.top = '50px';
+    item.style.width = '150px';
+    item.style.height = '40px';
+    item.style.backgroundColor = '#3498db';
+    item.style.color = 'white';
+    item.style.borderRadius = '6px';
+    item.style.zIndex = '1';
+    item.style.transform = 'rotate(0deg)';
+    item.textContent = '';
+
+    if (type === 'block') {
+      item.textContent = 'Block';
+    } else if (type === 'line') {
+      item.textContent = 'Line';
+    } else if (type === 'link') {
+      item.textContent = 'Link';
+      item.href = '#';
+      item.style.cursor = 'pointer';
+    } else if (type === 'image') {
+      item.style.backgroundColor = '#999';
+      item.style.border = '1px solid #666';
+      item.style.padding = '0';
+      item.style.overflow = 'hidden';
+    } else if (type === 'input') {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'Enter text';
+      input.style.width = '100%';
+      input.style.height = '100%';
+      input.style.border = 'none';
+      input.style.padding = '5px';
+      input.style.boxSizing = 'border-box';
+      input.style.borderRadius = 'inherit';
+      input.style.fontSize = '14px';
+      input.style.backgroundColor = 'transparent';
+      input.style.color = 'inherit';
+      item.appendChild(input);
+      input.addEventListener('mousedown', e => e.stopPropagation());
+      input.addEventListener('click', e => e.stopPropagation());
+    }
+
+    // Add resize handle
+    const resizeHandle = document.createElement('div');
+    resizeHandle.className = 'resize-handle';
+    item.appendChild(resizeHandle);
+
+    // Add rotate handle
+    const rotateHandle = document.createElement('div');
+    rotateHandle.className = 'rotate-handle';
+    item.appendChild(rotateHandle);
+
+    canvas.appendChild(item);
+
+    makeDraggable(item);
+    makeResizable(item, resizeHandle);
+    makeRotatable(item, rotateHandle);
+
+    selectItem(item);
+    updateOutput();
+
+    return item;
+  }
+
+  addBlockBtn.onclick = () => createItem('block');
+  addLineBtn.onclick = () => createItem('line');
+  addLinkBtn.onclick = () => createItem('link');
+  addImageBtn.onclick = () => imageUpload.click();
+  addInputBtn.onclick = () => createItem('input');
+
+  imageUpload.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const item = createItem('image');
+      const img = new Image();
+      img.onload = () => {
+        item.style.width = img.width + 'px';
+        item.style.height = img.height + 'px';
+        item.style.backgroundImage = `url(${reader.result})`;
+        item.style.backgroundSize = 'contain';
+        item.style.backgroundRepeat = 'no-repeat';
+        item.style.backgroundPosition = 'center';
+        item.textContent = '';
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+    imageUpload.value = '';
+  });
+
+  // Dragging
+  function makeDraggable(el) {
+    let isDragging = false;
+    let startX, startY, origX, origY;
+
+    el.addEventListener('mousedown', e => {
+      if (e.target.classList.contains('resize-handle') || e.target.classList.contains('rotate-handle')) return;
+      e.preventDefault();
+      selectItem(el);
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origX = parseFloat(el.style.left);
+      origY = parseFloat(el.style.top);
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+    });
+
+    function drag(e) {
+      if (!isDragging) return;
+      let dx = e.clientX - startX;
+      let dy = e.clientY - startY;
+      el.style.left = origX + dx + 'px';
+      el.style.top = origY + dy + 'px';
+      updateOutput();
+    }
+    function stopDrag() {
+      isDragging = false;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+    }
+  }
+
+  // Resizing
+  function makeResizable(el, handle) {
+    let isResizing = false;
+    let startX, startY, startWidth, startHeight;
+
+    handle.addEventListener('mousedown', e => {
+      e.stopPropagation();
+      e.preventDefault();
+      selectItem(el);
+      isResizing = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startWidth = parseFloat(getComputedStyle(el).width);
+      startHeight = parseFloat(getComputedStyle(el).height);
+      document.addEventListener('mousemove', resize);
+      document.addEventListener('mouseup', stopResize);
+    });
+
+    function resize(e) {
+      if (!isResizing) return;
+      let dx = e.clientX - startX;
+      let dy = e.clientY - startY;
+      el.style.width = Math.max(20, startWidth + dx) + 'px';
+      el.style.height = Math.max(20, startHeight + dy) + 'px';
+      updateOutput();
+    }
+    function stopResize() {
+      isResizing = false;
+      document.removeEventListener('mousemove', resize);
+      document.removeEventListener('mouseup', stopResize);
+    }
+  }
+
+  // Rotating
+  function makeRotatable(el, handle) {
+    let isRotating = false;
+    let centerX, centerY, startAngle;
+
+    handle.addEventListener('mousedown', e => {
+      e.stopPropagation();
+      e.preventDefault();
+      selectItem(el);
+      isRotating = true;
+
+      const rect = el.getBoundingClientRect();
+      centerX = rect.left + rect.width / 2;
+      centerY = rect.top + rect.height / 2;
+
+      const style = window.getComputedStyle(el);
+      const transform = style.transform === 'none' ? '' : style.transform;
+      startAngle = getRotationAngle(el);
+
+      document.addEventListener('mousemove', rotate);
+      document.addEventListener('mouseup', stopRotate);
+    });
+
+    function rotate(e) {
+      if (!isRotating) return;
+      let dx = e.clientX - centerX;
+      let dy = e.clientY - centerY;
+      let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+      el.style.transform = `rotate(${angle}deg)`;
+      updateOutput();
+    }
+    function stopRotate() {
+      isRotating = false;
+      document.removeEventListener('mousemove', rotate);
+      document.removeEventListener('mouseup', stopRotate);
+    }
+  }
+
+  // Select item function
+  function selectItem(el) {
+    if (selectedItem) selectedItem.classList.remove('selected');
+    selectedItem = el;
+    if (selectedItem) selectedItem.classList.add('selected');
+    updateOutput();
+  }
+
+  canvas.addEventListener('mousedown', e => {
+    if (e.target === canvas) {
+      if (selectedItem) {
+        selectedItem.classList.remove('selected');
+        selectedItem = null;
+        updateOutput();
+      }
+      hideContextMenu();
+    }
+  });
+
+  // Context menu
+
+  canvas.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    if (e.target.classList.contains('item')) {
+      selectItem(e.target);
+      showContextMenu(e.pageX, e.pageY);
+    } else {
+      hideContextMenu();
+    }
+  });
+
+  function showContextMenu(x, y) {
+    contextMenu.style.left = x + 'px';
+    contextMenu.style.top = y + 'px';
+    contextMenu.style.display = 'block';
+
+    // Enable paste only if clipboard has data
+    pasteBtn.disabled = !clipboard;
+  }
+  function hideContextMenu() {
+    contextMenu.style.display = 'none';
+  }
+
+  document.addEventListener('click', () => {
+    hideContextMenu();
+  });
+
+  editBtn.onclick = () => {
+    if (!selectedItem) return;
+    hideContextMenu();
+
+    // Fill modal fields
+    if (selectedItem.dataset.type === 'input') {
+      const input = selectedItem.querySelector('input');
+      editText.value = input.placeholder || '';
+    } else if (selectedItem.dataset.type === 'link') {
+      editText.value = selectedItem.textContent;
+    } else if (selectedItem.dataset.type === 'image') {
+      editText.value = '';
+    } else {
+      editText.value = selectedItem.textContent;
+    }
+
+    if (selectedItem.dataset.type === 'link') {
+      editHref.disabled = false;
+      editHref.value = selectedItem.href === '#' ? '' : selectedItem.href;
+    } else {
+      editHref.disabled = true;
+      editHref.value = '';
+    }
+
+    editBgColor.value = rgbToHex(selectedItem.style.backgroundColor);
+    editColor.value = rgbToHex(selectedItem.style.color);
+
+    // Border radius parse
+    const br = selectedItem.style.borderRadius.split(' ');
+    editBrTopLeft.value = parseInt(br[0]) || 0;
+    editBrTopRight.value = parseInt(br[1]) || 0;
+    editBrBottomRight.value = parseInt(br[2]) || 0;
+    editBrBottomLeft.value = parseInt(br[3]) || 0;
+
+    // Rotation
+    editRotation.value = getRotationAngle(selectedItem);
+
+    editModal.style.display = 'flex';
+  };
+
+  deleteBtn.onclick = () => {
+    if (!selectedItem) return;
+    selectedItem.remove();
+    selectedItem = null;
+    hideContextMenu();
+    updateOutput();
+  };
+
+  cutBtn.onclick = () => {
+    if (!selectedItem) return;
+    clipboard = cloneItem(selectedItem);
+    selectedItem.remove();
+    selectedItem = null;
+    hideContextMenu();
+    updateOutput();
+  };
+
+  copyBtn.onclick = () => {
+    if (!selectedItem) return;
+    clipboard = cloneItem(selectedItem);
+    hideContextMenu();
+  };
+
+  pasteBtn.onclick = () => {
+    if (!clipboard) return;
+    const clone = cloneItem(clipboard, true);
+    canvas.appendChild(clone);
+    makeDraggable(clone);
+    makeResizable(clone, clone.querySelector('.resize-handle'));
+    makeRotatable(clone, clone.querySelector('.rotate-handle'));
+    selectItem(clone);
+    hideContextMenu();
+    updateOutput();
+  };
+
+  duplicateBtn.onclick = () => {
+    if (!selectedItem) return;
+    const clone = cloneItem(selectedItem, true);
+    canvas.appendChild(clone);
+    makeDraggable(clone);
+    makeResizable(clone, clone.querySelector('.resize-handle'));
+    makeRotatable(clone, clone.querySelector('.rotate-handle'));
+    selectItem(clone);
+    hideContextMenu();
+    updateOutput();
+  };
+
+  bringForwardBtn.onclick = () => {
+    if (!selectedItem) return;
+    let z = parseInt(selectedItem.style.zIndex) || 1;
+    z++;
+    selectedItem.style.zIndex = z;
+    hideContextMenu();
+    updateOutput();
+  };
+
+  sendBackwardBtn.onclick = () => {
+    if (!selectedItem) return;
+    let z = parseInt(selectedItem.style.zIndex) || 1;
+    z = Math.max(1, z - 1);
+    selectedItem.style.zIndex = z;
+    hideContextMenu();
+    updateOutput();
+  };
+
+  function cloneItem(item, offset = false) {
+    const clone = item.cloneNode(true);
+    clone.id = `item${++idCounter}`;
+    if (offset) {
+      clone.style.left = (parseFloat(item.style.left) + 20) + 'px';
+      clone.style.top = (parseFloat(item.style.top) + 20) + 'px';
+    }
+    return clone;
+  }
+
+  // Edit modal form submission
+  editForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!selectedItem) return;
+
+    if (selectedItem.dataset.type === 'input') {
+      const input = selectedItem.querySelector('input');
+      input.placeholder = editText.value;
+    } else if (selectedItem.dataset.type === 'link') {
+      selectedItem.textContent = editText.value;
+      selectedItem.href = editHref.value || '#';
+    } else if (selectedItem.dataset.type === 'image') {
+      // No text
+    } else {
+      selectedItem.textContent = editText.value;
+    }
+
+    selectedItem.style.backgroundColor = editBgColor.value;
+    selectedItem.style.color = editColor.value;
+
+    selectedItem.style.borderRadius = `${editBrTopLeft.value}px ${editBrTopRight.value}px ${editBrBottomRight.value}px ${editBrBottomLeft.value}px`;
+
+    selectedItem.style.transform = `rotate(${editRotation.value}deg)`;
+
+    editModal.style.display = 'none';
+    updateOutput();
+  });
+
+  // Close modal when clicking outside form
+  editModal.addEventListener('click', e => {
+    if (e.target === editModal) {
+      editModal.style.display = 'none';
+    }
+  });
+
+  // Copy buttons
+  copyCSSBtn.onclick = () => {
+    navigator.clipboard.writeText(outputCSS.value);
+    alert('CSS copied!');
+  };
+
+  copyHTMLBtn.onclick = () => {
+    navigator.clipboard.writeText(outputHTML.value);
+    alert('HTML copied!');
+  };
+
+  // Utility functions
+  function rgbToHex(rgb) {
+    if (!rgb) return '#000000';
+    const result = rgb.match(/\d+/g);
+    if (!result || result.length < 3) return '#000000';
+    return (
+      '#' +
+      result
+        .slice(0, 3)
+        .map(x => {
+          const hex = parseInt(x).toString(16);
+          return hex.length === 1 ? '0' + hex : hex;
+        })
+        .join('')
+    );
+  }
+
+  function getRotationAngle(el) {
+    const st = window.getComputedStyle(el, null);
+    const tr = st.getPropertyValue('transform');
+    if (tr === 'none') return 0;
+    const values = tr.split('(')[1].split(')')[0].split(',');
+    const a = values[0];
+    const b = values[1];
+    const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+    return angle < 0 ? angle + 360 : angle;
+  }
+
+  function updateOutput() {
+    const items = canvas.querySelectorAll('.item');
+    let css = '';
+    let html = '';
+    items.forEach(item => {
+      const id = item.id;
+      const style = window.getComputedStyle(item);
+
+      if (item.dataset.type === 'input') {
+        const input = item.querySelector('input');
+        html += `<div id="${id}" class="item" style="${item.style.cssText}"><input type="text" placeholder="${escapeHTML(input.placeholder)}" style="width: 100%; height: 100%; border: none; padding: 5px; box-sizing: border-box; border-radius: inherit; font-size: 14px; background-color: transparent; color: inherit;"></div>\n`;
+      } else if (item.dataset.type === 'image') {
+        html += `<div id="${id}" class="item" style="${item.style.cssText}"></div>\n`;
+      } else if (item.dataset.type === 'link') {
+        html += `<a id="${id}" href="${item.href}" class="item" style="${item.style.cssText}">${escapeHTML(item.textContent)}</a>\n`;
+      } else {
+        html += `<div id="${id}" class="item" style="${item.style.cssText}">${escapeHTML(item.textContent)}</div>\n`;
+      }
+
+      css += `#${id} {\n`;
+      css += `  position: absolute;\n`;
+      css += `  left: ${style.left};\n`;
+      css += `  top: ${style.top};\n`;
+      css += `  width: ${style.width};\n`;
+      css += `  height: ${style.height};\n`;
+      css += `  background-color: ${style.backgroundColor};\n`;
+      css += `  color: ${style.color};\n`;
+      css += `  border-radius: ${style.borderTopLeftRadius} ${style.borderTopRightRadius} ${style.borderBottomRightRadius} ${style.borderBottomLeftRadius};\n`;
+      css += `  transform: ${style.transform};\n`;
+      css += `  z-index: ${style.zIndex};\n`;
+      css += `  background-image: ${style.backgroundImage};\n`;
+      css += `  background-size: ${style.backgroundSize};\n`;
+      css += `  background-repeat: ${style.backgroundRepeat};\n`;
+      css += `  background-position: ${style.backgroundPosition};\n`;
+      css += `}\n\n`;
+    });
+
+    outputCSS.value = css.trim();
+    outputHTML.value = html.trim();
+  }
+
+  function escapeHTML(text) {
+    if (!text) return '';
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  updateOutput();
+
+})();  
+</script>
+
+</body>
+</html>

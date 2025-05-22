@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Box Shadow Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Box Shadow Generator</h1>
+    <a href="index.html">← Back to Home</a>
+
+    <label>Horizontal Offset: <input type="range" id="hOffset" min="-50" max="50" value="10" /></label>
+    <label>Vertical Offset: <input type="range" id="vOffset" min="-50" max="50" value="10" /></label>
+    <label>Blur Radius: <input type="range" id="blur" min="0" max="100" value="20" /></label>
+    <label>Spread Radius: <input type="range" id="spread" min="0" max="100" value="5" /></label>
+    <label>Shadow Color: <input type="color" id="color" value="#000000" /></label>
+
+    <div class="preview" id="shadowBox">Shadow Box</div>
+    <pre id="shadowOutput"></pre>
+    <button onclick="copyCSS()">Copy CSS</button>
+  </div>
+
+  <script src="shadow.js"></script>
+</body>
+</html>
