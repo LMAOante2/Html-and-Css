@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Clock</title>
+</head>
+<style>
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        touch-action: pan-y;
+    }
+    .container {
+        background-color: #1e1e2f;
+        border-radius: 12px;
+        padding: 50px 25px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 100%;
+        max-width: 360px;
+        border: 2px solid #00aaff;
+    }
+
+    .clock, .date {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        font-size: 2rem;
+        margin: 1rem 0;
+        padding: 0.8rem 0;
+        border-radius: 8px;
+        flex-wrap: wrap;
+    }
+
+    .clock {
+        background-color: #2a2a3b;
+        color: #00ffff;
+    }
+
+    .date {
+        background-color: #ffffff;
+        color: #333;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .clock span, .date span {
+        font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 1.5rem 1rem;
+        }
+
+        .clock, .date {
+            font-size: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .date {
+            font-size: 1rem;
+        }
+    }
+
+</style>
+<body>
+
+    <div class="container">
+        <div class="clock">
+        <span id="hrs">00</span>
+        <span>:</span>
+        <span id="min">00</span>
+        <span>:</span>
+        <span id="sec">00</span>
+    </div>
+
+    <div class="date">
+        <span id="day">00</span>
+        <span>/</span>
+        <span id="month">00</span>
+        <span>/</span>
+        <span id="year">0000</span>
+    </div>
+    </div>
+
+    
+</body>
+<script>
+    let hrs = document.getElementById("hrs");
+let min = document.getElementById("min");
+let sec = document.getElementById("sec");
+let day = document.getElementById("day");
+let month = document.getElementById("month");
+let year = document.getElementById("year");
+
+setInterval(() => {
+    let currentTime = new Date();
+
+    hrs.innerHTML =
+    (currentTime.getHours() < 10 ? "0" : "")
+      + currentTime.getHours();
+
+      min.innerHTML =
+      (currentTime.getMinutes() < 10 ? "0" : "")
+        + currentTime.getMinutes();
+
+        sec.innerHTML =
+        (currentTime.getSeconds() < 10 ? "0" : "")
+          + currentTime.getSeconds();
+
+    let currentDate = new Date ();
+
+      day.innerHTML =
+        (currentDate.getDate() < 10 ? "0" : "")
+          + currentDate.getDate();
+
+          month.innerHTML =
+          (currentDate.getMonth() +1 < 10 ? "0" : "")
+            + (currentDate.getMonth() +1);
+
+            year.innerHTML =
+            (currentDate.getFullYear() < 10 ? "0" : "")
+              + currentDate.getFullYear();
+})
+</script>
+</html>
