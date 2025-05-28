@@ -220,14 +220,6 @@ onAuthStateChanged(auth, (user) => {
 });
 
 onAuthStateChanged(auth, (user) => {
-  const responsivenavbar1 = document.getElementById('responsivenavbar1');
-  if (user) {
-    responsivenavbar1.style.display = 'true';
-  } else {
-    responsivenavbar1.style.display = 'none';
-  }
-
-  onAuthStateChanged(auth, (user) => {
   const responsivenavbar1 = document.getElementById('responsivenavbarnot1');
   if (user) {
     responsivenavbar1.style.display = 'none';
@@ -235,6 +227,18 @@ onAuthStateChanged(auth, (user) => {
     responsivenavbar1.style.display = 'true';
   }
 });
+
+
+onAuthStateChanged(auth, (user) => {
+  const responsivenavbar1 = document.getElementById('responsivenavbar1');
+  if (user) {
+    responsivenavbar1.style.display = 'true';
+  } else {
+    responsivenavbar1.style.display = 'none';
+  }
+});
+
+
 
 
 onAuthStateChanged(auth, (user) => {
