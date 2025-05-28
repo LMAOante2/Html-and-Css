@@ -85,7 +85,7 @@ signIn.addEventListener('click', (event) => {
       showMessage('Sucsesfull logged in!', 'signInMessage');
       const user = userCredential.user;
       localStorage.setItem('loggedInUserId', user.uid);
-      window.location.href = 'account.html';
+      window.location.href = 'pocetna.html';
     })
     .catch((error) => {
       const errorCode = error.code;
