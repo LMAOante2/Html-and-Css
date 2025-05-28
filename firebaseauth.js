@@ -85,7 +85,7 @@ signIn.addEventListener('click', (event) => {
       showMessage('Sucsesfull logged in!', 'signInMessage');
       const user = userCredential.user;
       localStorage.setItem('loggedInUserId', user.uid);
-      window.location.href = 'pocetna.html';
+      window.location.href = 'index.html';
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -99,6 +99,6 @@ signIn.addEventListener('click', (event) => {
 
 onAuthStateChanged(auth, (user) => {
   if (user && localStorage.getItem('loggedInUserId')) {
-    window.location.href = 'pocetna.html';
+    window.location.href = 'index.html';
   }
 });
