@@ -774,15 +774,6 @@ onAuthStateChanged(auth, (user) => {
 });
 
 onAuthStateChanged(auth, (user) => {
-  const resetPassword = document.getElementById('resetPassword');
-  if (user) {
-    resetPassword.style.display = 'true';
-  } else {
-    resetPassword.style.display = 'none';
-  }
-});
-
-onAuthStateChanged(auth, (user) => {
   const Ime = document.getElementById('Ime');
   if (user) {
     Ime.style.display = 'true';
@@ -996,12 +987,12 @@ document.addEventListener("DOMContentLoaded", () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         messageDiv.style.display = 'block';
-        messageDiv.innerText = 'E-mail za ponovno postavljanje lozinke je poslan!';
+        messageDiv.innerText = 'E-mail send!';
         messageDiv.style.color = 'green';
       })
       .catch((error) => {
         messageDiv.style.display = 'block';
-        messageDiv.innerText = 'Error u slanju e-maila. Pogledaj jel dobro upisano.';
+        messageDiv.innerText = 'Error while sending e-mail, look if its good written down.';
         messageDiv.style.color = 'red';
         console.error(error);
       });
