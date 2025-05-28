@@ -142,8 +142,8 @@
     <source src="" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-          <a id="responsivenavbar" href="clock.html" download class="download-btn responsivenavbar"><i class="fa-solid fa-download"></i> <p>Download</p></a>
-          <a style="background-color: grey;" id="responsivenavbarnot" href="account.html" class="download-btn"><i class="fa-solid fa-lock"></i> <p>Login to Download</p></a>
+          <a id="responsivenavbar1" href="clock.html" download class="download-btn responsivenavbar"><i class="fa-solid fa-download"></i> <p>Download</p></a>
+          <a style="background-color: grey;" id="responsivenavbarnot1" href="account.html" class="download-btn"><i class="fa-solid fa-lock"></i> <p>Login to Download</p></a>
               <a style="display: flex;" href="https://www.youtube.com/watch?v=MNKJ5wCpW8w" class="download-btn"><p>Tutorial</p></a>
 </div>
     </div>
@@ -216,6 +216,23 @@ onAuthStateChanged(auth, (user) => {
     responsivenavbar.style.display = 'none';
   } else {
     responsivenavbar.style.display = 'true';
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const responsivenavbar1 = document.getElementById('responsivenavbar1');
+  if (user) {
+    responsivenavbar1.style.display = 'true';
+  } else {
+    responsivenavbar1.style.display = 'none';
+  }
+
+  onAuthStateChanged(auth, (user) => {
+  const responsivenavbar1 = document.getElementById('responsivenavbarnot1');
+  if (user) {
+    responsivenavbar1.style.display = 'none';
+  } else {
+    responsivenavbar1.style.display = 'true';
   }
 });
 
